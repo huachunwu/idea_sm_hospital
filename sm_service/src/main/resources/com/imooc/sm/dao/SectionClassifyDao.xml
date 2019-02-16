@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imooc.sm.dao.SectionClassifyDao">
+    <resultMap id="resultMap" type="SectionClassify">
+        <id property="id" column="id" javaType="Integer"/>
+        <result property="name" column="name" javaType="String"/>
+        <result property="createTime" column="create_time" javaType="java.util.Date"/>
+        <result property="lastUpdateTime" column="last_update_time" javaType="java.util.Date"/>
+    </resultMap>
+    <insert id="insert" parameterType="SectionClassify" useGeneratedKeys="true">
+        insert into section_classify (name,create_time,last_update_time) values(#{name},#{createTime},#{lastUpdateTime})
+    </insert>
+    <delete id="delete" parameterType="Integer" >
+        delete from section_classify where id=#{id}
+    </delete>
+    <update id="update" parameterType="SectionClassify" >
+        update section_classify set name=#{name},last_update_time=#{lastUpdateTime} where id=#{id}
+    </update>
+    <select id="selectById" parameterType="Integer" resultMap="resultMap">
+        select * from section_classify where id=#{id}
+    </select>
+    <select id="selectAll" resultMap="resultMap" >
+        select * from section_classify
+    </select>
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imooc.sm.dao.SectionListDao">
+    <resultMap id="resultMap" type="SectionList">
+        <id property="id" column="id" javaType="Integer"/>
+        <result property="name" column="name" javaType="String"/>
+        <result property="createTime" column="create_time" javaType="java.util.Date"/>
+        <result property="lastUpdateTime" column="last_update_time" javaType="java.util.Date"/>
+        <result property="scid" column="scid" javaType="Integer" />
+        <association property="sectionClassify" column="scid" javaType="SectionClassify"
+                     select="com.imooc.sm.dao.SectionClassifyDao.selectById"/>
+    </resultMap>
+    <insert id="insert" parameterType="SectionList" useGeneratedKeys="true">
+        insert into section_list (name,create_time,last_update_time,scid) values (#{name},#{createTime},#{lastUpdateTime},#{scid})
+    </insert>
+    <delete id="delete" parameterType="Integer" >
+        delete from section_list where id=#{id}
+    </delete>
+    <update id="update" parameterType="SectionList" >
+        update section_list set name=#{name},last_update_time=#{lastUpdateTime},scid=#{scid} where id=#{id}
+    </update>
+    <select id="selectById" parameterType="Integer" resultMap="resultMap">
+        select * from section_list where id=#{id}
+    </select>
+    <select id="selectByScid" parameterType="Integer" resultMap="resultMap">
+        select * from section_list where scid=#{scid}
+    </select>
+    <select id="selectAll" resultMap="resultMap" >
+        select * from section_list
+    </select>
+</mapper>
